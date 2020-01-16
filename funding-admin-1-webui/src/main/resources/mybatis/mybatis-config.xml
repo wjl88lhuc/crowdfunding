@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <!--package是通过扫描包的形式来给指定包下面的所有实体类取别名，别名是实体类的小写字母
+        比如： AdminUser.java,那么别名就是 adminuser-->
+        <package name="com.atguigu.funding.entity"/>
+    </typeAliases>
+</configuration>

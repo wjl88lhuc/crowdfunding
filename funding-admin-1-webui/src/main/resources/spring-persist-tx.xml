@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+    <!--配置事务管理器-->
+    <bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--配置事物通知-->
+    <tx:advice id="txAdvice" transaction-manager="dataSourceTransactionManager">
+        <!--配置事物属性-->
+        <tx:attributes>
+            <!--查询的方法设置为只读的。对查询的方法设置为只读的好处：数据库可以查询方法进行优化,提高执行效率-->
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="query*" read-only="true"/>
+            <tx:method name="find*" read-only="true"/>
+            <tx:method name="count*" read-only="true"/>
+            <tx:method name="login*" read-only="true"/>
+
+            <!--给增删改方法设置-->
+            <!--propagation 设置传播行为，
+            propagation="REQUIRES_NEW" 表示两个增删改都必须允许在自己的事物中。如果配置成为propagation="REQUIRES"，
+             那么，当A 方法调用 B 方法，那么 B 就不在重新开事物了，而是使用A 的事物。
+             rollback-for="java.lang.Exception" 意思就是说：根据这个异常回滚，即当发生这个异常时就回滚。
+             rollback-for 默认是根据允许时回滚。
+             -->
+            <tx:method name="save*" propagation="REQUIRES_NEW" rollback-for="java.lang.Exception"/>
+            <tx:method name="remove*" propagation="REQUIRES_NEW" rollback-for="java.lang.Exception"/>
+            <tx:method name="update*" propagation="REQUIRES_NEW" rollback-for="java.lang.Exception"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!--配置事物切面-->
+    <aop:config>
+        <!--
+        第一个 * 表示方法返回值任意
+        第二个 * 表示任意包名
+        第二 个 * 与 第三个 * 之间的 两个 .. 表示 任意的层次包结构
+        *Service 表示任意的以Service 结尾的方法
+        (..) 表示方法任意的参数列表
+        -->
+        <!--切入点表达式-->
+        <aop:pointcut id="txPointCut" expression="execution(* *..*Service.*(..))"/>
+        <!--将事物通知与切入点表达式关联起来-->
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut"/>
+    </aop:config>
+
+    <!--事物的第二种方式: @Transactional-->
+   <!-- <tx:annotation-driven transaction-manager="dataSourceTransactionManager"/>-->
+
+</beans>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--扫描service所在包-->
+    <context:component-scan base-package="com.atguigu.funding.*"/>
+
+    <!--加载外部的属性文件-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <!--配置数据源-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="url" value="${jdbc.url}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="username" value="${jdbc.username}"/>
+    </bean>
+    <!--配置 SqlSessionFactoryBean -->
+    <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sessionFactoryBean">
+        <!--mybatis的配置文件所在-->
+        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
+        <!--配置Mapper配置文件所在-->
+        <property name="mapperLocations" value="classpath:mybatis/mapper/*Mapper.xml"/>
+        <!--装配数据源-->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--配置Mybatis扫描器: 因为Spring的@ComponentScan不能扫描实体类对应的接口，必须靠mybatis自己的扫描器，
+    这样才能装配到Spring容器中，这样我们才能在Service层使用实体类（与数据库表对应）的-Dao接口-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" >
+        <!--指定实体类Dao接口所在的包-->
+        <property name="basePackage" value="com.atguigu.funding.dao"/>
+    </bean>
+
+</beans>
