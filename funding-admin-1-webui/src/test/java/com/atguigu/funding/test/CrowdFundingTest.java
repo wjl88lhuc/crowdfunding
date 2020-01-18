@@ -1,6 +1,7 @@
 package com.atguigu.funding.test;
 
 import com.atguigu.funding.api.AdminService;
+import com.atguigu.funding.dao.AdminDao;
 import com.atguigu.funding.entity.Admin;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,10 +16,10 @@ import java.util.List;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring-persist-mybatis.xml","classpath:spring-persist-tx.xml"})
+@ContextConfiguration(locations = {"classpath:spring-persist-mybatis.xml", "classpath:spring-persist-tx.xml"})
 public class CrowdFundingTest {
     @Autowired
-    private DataSource dataSource ;
+    private DataSource dataSource;
 
     @Autowired
     private AdminService adminService;
@@ -32,7 +33,7 @@ public class CrowdFundingTest {
 
     //测试mybatis
     @Test
-    public void testMybatis(){
+    public void testMybatis() {
         List<Admin> adminList = adminService.getAll();
         for (Admin admin : adminList) {
             System.out.println(admin);
@@ -45,6 +46,14 @@ public class CrowdFundingTest {
         adminService.updateAdmin();
     }
 
+    @Autowired
+    AdminDao adminDao;
 
-
+    @Test
+    public void testSelectAdminListByKeyword() {
+        List<Admin> adminList = adminDao.selectAdminListByKeyword("ha");
+        for (Admin admin : adminList) {
+            System.out.println(admin);
+        }
+    }
 }

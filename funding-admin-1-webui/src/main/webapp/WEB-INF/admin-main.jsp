@@ -1,22 +1,54 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Administrator
-  Date: 2019/12/15
-  Time: 21:01
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>❤汇聚点滴的力量，成就非凡的伟业❤</title>
-    <base href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/"/>
-</head>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<html lang="UTF-8">
+<%--引入头部，样式等--%>
+<%@ include file="include-head.jsp" %>
+
 <body>
-<h1>后台主页面</h1>
-${sessionScope['LOGIN-ADMIN']}
-<%--由于减号（-）在el表达式中有特殊含义，所以如果使用下面的方式就变成了 sessionScope.LOGIN 的值减去 sessionScope.ADMIN 的值-->
-<%--${sessionScope.LOGIN-ADMIN}--%>
-<br/>
-<a href="admin/logout.html">退出</a>
+<%--引入公共标题栏--%>
+<%@ include file="include-nav.jsp" %>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <%--引入公共导航栏--%>
+        <%@ include file="include-sidebar.jsp"%>
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">控制面板</h1>
+
+            <div class="row placeholders">
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <img data-src="holder.js/200x200/auto/sky" class="img-responsive"
+                         alt="Generic placeholder thumbnail">
+                    <h4>Label</h4>
+                    <span class="text-muted">Something else</span>
+                </div>
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <img data-src="holder.js/200x200/auto/vine" class="img-responsive"
+                         alt="Generic placeholder thumbnail">
+                    <h4>Label</h4>
+                    <span class="text-muted">Something else</span>
+                </div>
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <img data-src="holder.js/200x200/auto/sky" class="img-responsive"
+                         alt="Generic placeholder thumbnail">
+                    <h4>Label</h4>
+                    <span class="text-muted">Something else</span>
+                </div>
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <img data-src="holder.js/200x200/auto/vine" class="img-responsive"
+                         alt="Generic placeholder thumbnail">
+                    <h4>Label</h4>
+                    <span class="text-muted">Something else</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </body>
 </html>
+
