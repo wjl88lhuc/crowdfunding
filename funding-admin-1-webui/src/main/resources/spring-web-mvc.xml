@@ -12,6 +12,8 @@
     <!--配置SpringMVC标配 :注解驱动-->
     <mvc:annotation-driven/>
 
+    <mvc:view-controller path="/admin/to/add/page.html" view-name="admin-add"/>
+
     <!--配置拦截器-->
     <mvc:interceptors>
         <mvc:interceptor>

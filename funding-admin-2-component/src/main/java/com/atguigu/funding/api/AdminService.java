@@ -16,4 +16,10 @@ public interface AdminService {
     PageInfo<Admin> queryForKeywordSearch(Integer pageNum,Integer pageSize,String keyword);
 
     void batchRemove(List<Integer> adminArray);
+
+    void saveAdmin(Admin admin);
+
+    Admin getAdminById(Integer adminId);
+
+    void updateAdmin(Admin admin);
 }

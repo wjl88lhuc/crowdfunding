@@ -12,6 +12,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -55,5 +58,13 @@ public class CrowdFundingTest {
         for (Admin admin : adminList) {
             System.out.println(admin);
         }
+    }
+
+    @Test
+    public void testInstant(){
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println(now);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        System.out.println(now.format(dateTimeFormatter));
     }
 }

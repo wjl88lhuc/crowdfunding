@@ -236,5 +236,6 @@
         where login_acct LIKE CONCAT("%", #{keyword}, "%")
         OR user_name LIKE CONCAT("%", #{keyword}, "%")
         OR emai LIKE CONCAT("%", #{keyword}, "%")
+        order by id desc
     </select>
 </mapper>

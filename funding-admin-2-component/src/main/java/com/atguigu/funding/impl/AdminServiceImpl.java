@@ -4,12 +4,15 @@ import com.atguigu.funding.api.AdminService;
 import com.atguigu.funding.dao.AdminDao;
 import com.atguigu.funding.entity.Admin;
 import com.atguigu.funding.entity.AdminExample;
+import com.atguigu.funding.util.CrowdFundingConstant;
 import com.atguigu.funding.util.CrowdFundingUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 
@@ -66,5 +69,31 @@ public class AdminServiceImpl implements AdminService {
         AdminExample adminExample = new AdminExample();
         adminExample.createCriteria().andIdIn(adminArray);
         adminDao.deleteByExample(adminExample);
+    }
+
+    @Override
+    public void saveAdmin(Admin admin) {
+        //对密码进行加密
+        String userPswd = CrowdFundingUtils.md5(admin.getUserPswd());
+        admin.setUserPswd(userPswd);
+        if (admin != null && admin.getCreateTime() == null){
+            LocalDateTime timeNow = LocalDateTime.now();
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            admin.setCreateTime(timeNow.format(dateTimeFormatter));
+        }
+        //执行保存
+        adminDao.insert(admin);
+    }
+
+    @Override
+    public Admin getAdminById(Integer adminId) {
+        return adminDao.selectByPrimaryKey(adminId);
+    }
+
+    @Override
+    public void updateAdmin(Admin admin) {
+        String userPswd = CrowdFundingUtils.md5(admin.getUserPswd());
+        admin.setUserPswd(userPswd);
+        adminDao.updateByPrimaryKey(admin);//执行更新操作
     }
 }

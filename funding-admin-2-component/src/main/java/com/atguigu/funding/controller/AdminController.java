@@ -6,6 +6,7 @@ import com.atguigu.funding.entity.ResultEntity;
 import com.atguigu.funding.util.CrowdFundingConstant;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +21,40 @@ import java.util.List;
 public class AdminController {
     @Autowired
     private AdminService adminService;
+
+    @RequestMapping("/admin/update")
+    public String updateAdmin(Admin admin,@RequestParam("pageNum") Integer pageNum){
+        System.out.println("pageNum:" + pageNum);
+        try {
+            adminService.updateAdmin(admin);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (e instanceof DuplicateKeyException){
+                throw new RuntimeException(CrowdFundingConstant.MESSAGE_LOGINACCT_ALREADY_IN_USE);
+            }
+        }
+        return "redirect:/admin/query/for/search.html?pageNum=" + pageNum;
+    }
+
+    @RequestMapping("/admin/to/edit/page")
+    public String toEditPage(@RequestParam("adminId") Integer adminId,Model model){
+        Admin admin = adminService.getAdminById(adminId);
+        model.addAttribute("admin",admin);
+        return "admin-edit";
+    }
+
+    @RequestMapping("admin/save")
+    public String saveAdmin(Admin admin){
+        try {
+            adminService.saveAdmin(admin);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (e instanceof DuplicateKeyException){
+                throw new RuntimeException(CrowdFundingConstant.MESSAGE_LOGINACCT_ALREADY_IN_USE);
+            }
+        }
+        return "redirect:/admin/query/for/search.html";
+    }
 
     /**
      * @ResponseBody 作用就是将当前方法的返回值当作响应体，不再经过视图解析器了。将java类型转换成为json格式返回给请求者。
@@ -41,7 +76,7 @@ public class AdminController {
     public String queryForsearch(
             //如果页面上没有提供对应的参数（没有传过来），那么就使用defaultValue指定的默认值
             @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-            @RequestParam(value = "pageSize", required = false, defaultValue = "6") Integer pageSize,
+            @RequestParam(value = "pageSize",defaultValue = "6") Integer pageSize,
             @RequestParam(value = "keyword", defaultValue = "") String keyword, Model model) {
         PageInfo<Admin> pageInfo = adminService.queryForKeywordSearch(pageNum, pageSize, keyword);
         System.out.println("总条数:" + pageInfo.getList().size());

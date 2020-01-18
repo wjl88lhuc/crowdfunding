@@ -114,10 +114,9 @@
                     <button id="deleteBatchBtn" type="button" class="btn btn-danger"
                             style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除
                     </button>
-                    <button type="button" class="btn btn-primary" style="float:right;"
-                            onclick="window.location.href='${PATH}/admin/toAdd'"><i
-                            class="glyphicon glyphicon-plus"></i> 新增
-                    </button>
+                    <a href="admin/to/add/page.html" class="btn btn-primary" style="float:right;">
+                        <i class="glyphicon glyphicon-plus"></i> 新增
+                    </a>
                     <br>
                     <hr style="clear:both;">
                     <div class="table-responsive">
@@ -150,9 +149,9 @@
                                         <td>
                                             <button type="button" class="btn btn-success btn-xs"><i
                                                     class=" glyphicon glyphicon-check"></i></button>
-                                            <button type="button" class="btn btn-primary btn-xs"
-                                                    onclick="window.location.href='${PATH}/admin/toUpdate?pageNum=${page.pageNum}&id=${admin.id}'">
-                                                <i class=" glyphicon glyphicon-pencil"></i></button>
+                                            <a href="admin/to/edit/page.html?adminId=${admin.id}&pageNum=${requestScope['PAGE-INFO'].pageNum}" class="btn btn-primary btn-xs">
+                                                <i class=" glyphicon glyphicon-pencil"></i>
+                                            </a>
                                             <button type="button" adminId="${admin.id}" class="uniqueRemoveBtn btn btn-danger btn-xs">
                                                 <i class=" glyphicon glyphicon-remove"></i>
                                             </button>
