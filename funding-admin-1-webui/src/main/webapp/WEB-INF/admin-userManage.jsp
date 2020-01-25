@@ -9,6 +9,7 @@
 <script type="text/javascript" src="script/my-admin.js"></script>
 <script>
     $(function () {
+        layer.msg("hello layer....")
 
         //初始化全局变量
         window.totalRecord="${requestScope['PAGE-INFO'].total}" //声明变量存储总记录数

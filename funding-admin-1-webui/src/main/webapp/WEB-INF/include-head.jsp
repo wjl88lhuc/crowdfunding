@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="layer/theme/default/layer.css"/>
     <style>
         .tree li {
             list-style-type: none;
@@ -47,5 +48,6 @@
             });
         });
     </script>
+    <script type="text/javascript" src="layer/layer.js"></script>
 
 </head>

@@ -2,7 +2,9 @@ package com.atguigu.funding.test;
 
 import com.atguigu.funding.api.AdminService;
 import com.atguigu.funding.dao.AdminDao;
+import com.atguigu.funding.dao.RoleDao;
 import com.atguigu.funding.entity.Admin;
+import com.atguigu.funding.entity.Role;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +59,16 @@ public class CrowdFundingTest {
         List<Admin> adminList = adminDao.selectAdminListByKeyword("ha");
         for (Admin admin : adminList) {
             System.out.println(admin);
+        }
+    }
+
+    @Autowired
+    private RoleDao roleDao;
+
+    @Test
+    public void testSaveRole(){
+        for (int i = 0; i < 100; i++) {
+            roleDao.insert(new Role(null,"role" + i));
         }
     }
 

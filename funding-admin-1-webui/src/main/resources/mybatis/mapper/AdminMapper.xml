@@ -111,13 +111,13 @@
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="Admin" useGeneratedKeys="true">
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="admin" useGeneratedKeys="true">
     insert into t_admin (login_acct, user_pswd, user_name, 
       emai, create_time)
     values (#{loginAcct,jdbcType=VARCHAR}, #{userPswd,jdbcType=CHAR}, #{userName,jdbcType=VARCHAR}, 
       #{emai,jdbcType=VARCHAR}, #{createTime,jdbcType=CHAR})
   </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="Admin" useGeneratedKeys="true">
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="admin" useGeneratedKeys="true">
         insert into t_admin
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="loginAcct != null">
@@ -198,7 +198,7 @@
             <include refid="Update_By_Example_Where_Clause"/>
         </if>
     </update>
-    <update id="updateByPrimaryKeySelective" parameterType="Admin">
+    <update id="updateByPrimaryKeySelective" parameterType="admin">
         update t_admin
         <set>
             <if test="loginAcct != null">
@@ -219,7 +219,7 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="Admin">
+    <update id="updateByPrimaryKey" parameterType="admin">
     update t_admin
     set login_acct = #{loginAcct,jdbcType=VARCHAR},
       user_pswd = #{userPswd,jdbcType=CHAR},
