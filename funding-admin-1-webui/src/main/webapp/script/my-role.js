@@ -27,6 +27,11 @@ function sb() {
 function showPage() {
     //获取分页数据:PageInfo
     var pageInfo = getPageInfo();
+    if (pageInfo == null){
+        layer.msg("求登陆后再操作");
+        //如果没有得到 pageInfo 就直接结束了 该方法的执行,终止了后面的操作
+        return;
+    }
 
     //页面上表格中显示分页tBody的主题数据
     generateTableBody(pageInfo);

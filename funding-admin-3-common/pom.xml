@@ -27,6 +27,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!--引入servlet容器中相关依赖-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
 

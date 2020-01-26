@@ -1,6 +1,7 @@
 package com.atguigu.funding.util;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
@@ -73,5 +74,21 @@ public class CrowdFundingUtils {
             e.printStackTrace();
         }
         return builder.toString();
+    }
+
+    /**
+     * 判断一个请求是否是异步请求
+     * @param request
+     * @return
+     */
+    public static boolean checkAsyncRequest(HttpServletRequest request){
+        //获取请求消息头
+        String accept = request.getHeader("Accept");
+        String xRequested = request.getHeader("X-Requested-With");
+        if ((stringEffective(accept) && accept.contains("application/json")) ||
+                (stringEffective(xRequested) && xRequested.contains("XMLHttpRequest"))){//满足就是ajax的请求
+            return true;
+        }
+        return  false;
     }
 }
