@@ -41,4 +41,14 @@ public class RoleServiceImple implements RoleService {
         roleExample.createCriteria().andIdIn(roleIdList);
         roleDao.deleteByExample(roleExample);
     }
+
+    @Override
+    public void saveRole(String roleName) {
+        roleDao.insert(new Role(null,roleName));
+    }
+
+    @Override
+    public void updateByRoleId(Integer roleId,String roleName) {
+        roleDao.updateByPrimaryKey(new Role(roleId,roleName));
+    }
 }

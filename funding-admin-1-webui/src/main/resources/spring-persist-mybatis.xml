@@ -27,6 +27,11 @@
         <property name="plugins">
             <array>
                 <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <value>
+                            reasonable=true
+                        </value>
+                    </property>
                 </bean>
             </array>
         </property>

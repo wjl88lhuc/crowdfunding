@@ -33,3 +33,47 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+
+<div class="modal fade" id="addConfirmModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form role="form">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="addModalLabel">尚筹网系统弹窗</h4>
+                </div>
+                <div class="modal-body">
+                    <input id="roleNameInput" type="text" class="form-control" placeholder="请输入账号"/>
+                </div>
+                <div class="modal-footer">
+                    <button id="addConfirmBtn" type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus">保存</i></button>
+                    <button id="addResetConfirmBtn" type="reset" class="btn btn-primary"><i class="glyphicon glyphicon-refresh">重置</i></button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+//更新弹出的模态框
+<div class="modal fade" id="refreshConfirmModal" tabindex="-1" role="dialog" aria-labelledby="refreshModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form role="form">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="refreshModalLabel">尚筹网系统弹窗</h4>
+                </div>
+                <div class="modal-body">
+                    <input id="refreshRoleNameInput" type="text" class="form-control" placeholder="请输入账号"/>
+                </div>
+                <div class="modal-footer">
+                    <button id="refreshConfirmBtn" type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus">更新</i></button>
+                    <button type="reset" class="btn btn-primary"><i class="glyphicon glyphicon-refresh">重置</i></button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+

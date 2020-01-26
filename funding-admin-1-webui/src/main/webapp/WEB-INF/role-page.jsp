@@ -92,6 +92,87 @@
             showRemoveConfirmModel();
         });
 
+        //给新增添加事件
+        $("#addBtn").click(function () {
+            $("#addConfirmModal").modal("show");
+        });
+
+        //给新增的保存按钮绑定事件
+        $("#addConfirmBtn").click(function () {
+            var roleName = $.trim($("#roleNameInput").val());
+            if (roleName == null || roleName == ""){
+                layer.msg("请输入有效角色名称");
+                return;
+            }
+            //发送请求
+            $.ajax({
+                "url":"role/save/role.json",
+                "type":"post",
+                "data":{
+                    "roleName":roleName
+                },
+                "dataType":"json",
+                "success":function (response) {
+                    var result = response.result;
+                    if (result == "SUCCESS"){
+                        layer.msg("操作成功");
+                        //重新分页
+                        window.pageNum =window.total + 1;//前往最后一页
+                        showPage();
+                        console.log("window.pageNum: " + window.pageNum)
+                    }
+                    if (result == "FAILED") {
+                        layer.msg(respons.message);
+                    }
+                    //不管是失败还是成功都要关闭模态框
+                    $("#addConfirmModal").modal("hide");
+
+                    //清理本次在文本框的输入值
+                    $("#roleNameInput").val("");
+                },
+                "error":function (response) {
+                    layer.msg(respons.message);
+                }
+            });
+        });
+
+        //给更新绑定更新事件
+        $("#roleTablebody").on("click",".refreshBtn",function () {
+            var roleId = $(this).attr("roleId");
+            var roleName = $(this).attr("roleName");
+            $("#refreshRoleNameInput").val(roleName);
+            window.roleId = roleId;
+            $("#refreshConfirmModal").modal("show");
+        });
+
+        //给更新的保存更新按钮绑定事件9
+        $("#refreshConfirmBtn").click(function () {
+            $.ajax({
+                "url":"refresh/role/fresh.json",
+                "type":"post",
+                "data":{
+                    "roleId":window.roleId,
+                    "roleName":$("#refreshRoleNameInput").val()
+                },
+                "dataType":"json",
+                "success":function (response) {
+                    var result = response.result;
+                    if (result == "SUCCESS") {
+                        layer.msg("更新成功");
+                        showPage();
+                    }
+                    if (result == "FAILED") {
+                        layer.msg("更新失败")
+                    }
+                    $("#refreshConfirmModal").modal("hide");
+                },
+                "error":function (response) {
+                    layer.msg("更新失败")
+                    $("#refreshConfirmModal").modal("hide");
+                }
+            });
+        });
+
     })
 </script>
 <body>

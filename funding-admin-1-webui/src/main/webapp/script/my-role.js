@@ -27,6 +27,7 @@ function sb() {
 function showPage() {
     //获取分页数据:PageInfo
     var pageInfo = getPageInfo();
+
     //页面上表格中显示分页tBody的主题数据
     generateTableBody(pageInfo);
     //在页面上的表格中tfoot显示分页的页码导航条
@@ -48,10 +49,11 @@ function getPageInfo() {
         "async":false//为了保证当前getPageInfo函数能够在发送ajax请求之后拿到值并且显示，所以设置为同步请求
     });
     console.log(ajaxResult);  // ajaxResult 是json格式的响应体，有三个属性： data,message,result(状态)
-    var resultEntity = ajaxResult.responseJSON
-    var resultStatus = resultEntity.result
+    var resultEntity = ajaxResult.responseJSON;
+    var resultStatus = resultEntity.result;
     if (resultStatus == "SUCCESS") {
-        var pageInfo = resultEntity.data
+        var pageInfo = resultEntity.data;
+        window.total = pageInfo.pages;
         return pageInfo
     }
     if (resultStatus == "FIELD"){
@@ -81,8 +83,8 @@ function generateTableBody(pageInfo) {
     for (var i = 0; i < list.length; i++) {
         var role = list[i];
         var checkBtn = "<button type='button' class='btn btn-success btn-xs'><i class='glyphicon glyphicon-check'></i></button>";
-        var pencilBtn ="<button type='button' class='btn btn-primary btn-xs'><i class='glyphicon glyphicon-pencil'></i></button>";
-        var removeBtn = "<button type='button' roleId ='"+ role.id +  "' class='btn btn-danger btn-xs removeBtn'><i class='glyphicon glyphicon-remove'></i></button>";
+        var pencilBtn ="<button type='button' roleId ='"+ role.id +  "' roleName ='"+ role.name +  "'  class='btn btn-primary btn-xs refreshBtn'><i class='glyphicon glyphicon-pencil'></i></button>";
+        var removeBtn = "<button type=button' roleId ='"+ role.id +  "' class='btn btn-danger btn-xs removeBtn'><i class='glyphicon glyphicon-remove'></i></button>";
         var numberId = "<td>"+ (i+ 1) + "</td>";
         var checkBoxId = "<td><input roleId ='"+ role.id +  "' class = 'itemBox'" + " type='checkbox'/></td>";
         var roleNameId = "<td>" + role.name + "</td>";
@@ -150,6 +152,7 @@ function getRoleListByRoleIdArray(roleIdArray) {
     }
     return null;
 }
+
 
 
 

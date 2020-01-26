@@ -12,4 +12,9 @@ public interface RoleService {
     List<Role> getRoleListByidList(List<Integer> roleIdList);
 
     void batchRemove(List<Integer> roleIdList);
+
+    void saveRole(String roleName);
+
+    void updateByRoleId(Integer roleId,String roleName);
+
 }
