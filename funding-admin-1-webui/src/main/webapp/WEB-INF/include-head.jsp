@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="layer/theme/default/layer.css"/>
+    <link rel="stylesheet" href="ztree/zTreeStyle.css"/>
+
     <style>
         .tree li {
             list-style-type: none;
@@ -34,6 +36,7 @@
     <script src="jquery/jquery-2.1.1.min.js"></script>
     <script src="bootstrap/js/bootstrap.js"></script>
     <script src="script/docs.min.js"></script>
+    <script type="text/javascript" src="ztree/jquery.ztree.all-3.5.min.js"></script>
     <script type="text/javascript">
         $(function () {
             $(".list-group-item").click(function () {
