@@ -87,7 +87,7 @@ function generateTableBody(pageInfo) {
 
     for (var i = 0; i < list.length; i++) {
         var role = list[i];
-        var checkBtn = "<button type='button' class='btn btn-success btn-xs'><i class='glyphicon glyphicon-check'></i></button>";
+        var checkBtn = "<button type='button' class='btn btn-success btn-xs checkBtn' roleId ='"+ role.id +  "'  ><i class='glyphicon glyphicon-check'></i></button>";
         var pencilBtn ="<button type='button' roleId ='"+ role.id +  "' roleName ='"+ role.name +  "'  class='btn btn-primary btn-xs refreshBtn'><i class='glyphicon glyphicon-pencil'></i></button>";
         var removeBtn = "<button type=button' roleId ='"+ role.id +  "' class='btn btn-danger btn-xs removeBtn'><i class='glyphicon glyphicon-remove'></i></button>";
         var numberId = "<td>"+ (i+ 1) + "</td>";

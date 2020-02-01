@@ -17,4 +17,9 @@ public interface RoleService {
 
     void updateByRoleId(Integer roleId,String roleName);
 
+    List<Role> getAssignedRoleList(Integer adminId);
+
+    List<Role> getUnAssignedRoleList(Integer adminId);
+
+    void updateRelationShip(List<Integer> roleIdList, Integer adminId);
 }

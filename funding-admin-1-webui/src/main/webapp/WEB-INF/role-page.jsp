@@ -173,6 +173,126 @@
             });
         });
 
+        //checkBtn
+        $("#roleTablebody").on("click",".checkBtn",function () {
+            var setting = {
+                data:{
+                    simpleData:{
+                        enable: true,  // 设置这个属性，zTree就使用我们传入的json格式的数据进行组装
+                        pIdKey: "categoryId"
+                    },
+                    key:{
+                        name:"title"
+                    }
+                },
+                check:{
+                    enable:true  //这个设置的作用就是在树形结构前面显示多选框
+                }
+            };
+
+            //将角色id 存入全局变量
+            var roleId = $(this).attr("roleId");
+            window.roleId = roleId;
+
+            //1. 显示模态框
+            $("#roleAssingAuthModal").modal("show");
+            //2. 获取json数据
+            var  ajaxResult = $.ajax({
+                "url":"assign/get/all/auth.json",
+                "type":"post",
+                "dataType":"json",
+                "async":false
+            });
+            //3. 
+            if (ajaxResult.responseJSON.result == "FAILED") {
+                layer.msg(ajaxResult.responseJSON.message);
+                return;
+            }
+            var zNodes = ajaxResult.responseJSON.data;
+
+            //3. 初始化树形结构
+            $.fn.zTree.init($("#assignRoleAuthDemo"),setting,zNodes);
+
+            //4. 将树形结构展开
+            var treeObj = $.fn.zTree.getZTreeObj("assignRoleAuthDemo");
+            treeObj.expandAll(true);
+
+            //5 查询以前分配过的authId
+            ajaxResult = $.ajax({
+                "url":"assinge/get/assinged/auth/id/list.json",
+                "type":"post",
+                "data":{
+                    "roleId": $(this).attr("roleId"),
+                    "random":Math.random() // 传入这个参数让浏览器不要缓存
+                },
+                "dataType":"json",
+                "async":false
+            });
+
+            if (ajaxResult.responseJSON.result == "FAILED") {
+                layer.msg(ajaxResult.responseJSON.message);
+                return;
+            }
+            var authIdList = ajaxResult.responseJSON.data;
+
+            for (var i = 0; i < authIdList.length; i++) {
+                //遍历过程中获取每一个authId
+                var authId = authIdList[i];
+                //根据authId查询一个具体的树形节点
+                // key : 表示查询节点的属性名
+                //value: 表示查询节点的属性值，这里使用authId
+                var  key = "id" ;
+                var treeNode = $.fn.zTree.getZTreeObj("assignRoleAuthDemo").getNodeByParam(key,authId);
+                //勾选找到的节点
+                //treeNode ：当前要勾选的节点
+                // true: 表示设置为勾选状态
+                //false: 表示不联动
+                $.fn.zTree.getZTreeObj("assignRoleAuthDemo").checkNode(treeNode,true,false);
+            }
+        });
+
+        $("#roleAssingAuthBtn").click(function () {
+            var authIdArray = new Array();
+
+            //调用ZTree的方法获取已经被勾选的节点
+            var checkedNodes = $.fn.zTree.getZTreeObj("assignRoleAuthDemo").getCheckedNodes();
+
+            //遍历CheckedNodes
+            for (var i = 0; i < checkedNodes.length; i++) {
+                //获取具体的一个节点
+                var node = checkedNodes[i];
+
+                //获取当前节点的id属性
+                var authId = node.id;
+
+                //将authId 存入数组中
+                authIdArray.push(authId);
+            }
+
+            var requestBody = {"roleIdList":[window.roleId],"authIdList":authIdArray};
+
+            //发送请求
+            var ajaxReulst = $.ajax({
+                "url":"assgin/do/assgin.json",
+                "type":"post",
+                "data":JSON.stringify(requestBody),
+                "contentType":"application/json;charset=UTF-8",
+                "dataType":"json",
+                "async":false
+            });
+
+            if (ajaxReulst.responseJSON.result == "SUCCESS") {
+                layer.msg("操作成功");
+            }
+            if (ajaxReulst.responseJSON.result == "FAILED") {
+                layer.msg(ajaxReulst.responseJSON.message);
+            }
+
+            //关闭模态框
+            $("#roleAssingAuthModal").modal("hide");
+        });
+
+
     })
 </script>
 <body>
@@ -236,6 +356,7 @@
 </div>
 
 <%@include file="include-modal-role-confirm.jsp" %>
+<%@include file="include-modal-assign-auth.jsp"%>
 
 </body>
 </html>

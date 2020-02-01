@@ -4,6 +4,7 @@ import com.atguigu.funding.api.RoleService;
 import com.atguigu.funding.dao.RoleDao;
 import com.atguigu.funding.entity.Role;
 import com.atguigu.funding.entity.RoleExample;
+import com.atguigu.funding.util.CrowdFundingUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +51,26 @@ public class RoleServiceImple implements RoleService {
     @Override
     public void updateByRoleId(Integer roleId,String roleName) {
         roleDao.updateByPrimaryKey(new Role(roleId,roleName));
+    }
+
+    @Override
+    public List<Role> getAssignedRoleList(Integer adminId) {
+        return roleDao.selectAssignedRoleList(adminId);
+    }
+
+    @Override
+    public List<Role> getUnAssignedRoleList(Integer adminId) {
+        return roleDao.selectUnAssignedRoleList(adminId);
+    }
+
+    @Override
+    public void updateRelationShip(List<Integer> roleIdList, Integer adminId) {
+        //1 .删除全部旧的数据
+        roleDao.deleteOldAdminRelationShip(adminId);
+        //2.保存全部新的数据
+        if (CrowdFundingUtils.collectionEffective(roleIdList)){
+            roleDao.insertNewAdminRelationShip(adminId,roleIdList);
+        }
+
     }
 }

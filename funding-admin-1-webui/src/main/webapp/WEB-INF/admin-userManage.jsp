@@ -148,8 +148,9 @@
                                         <td>${admin.userName }</td>
                                         <td>${admin.emai }</td>
                                         <td>
-                                            <button type="button" class="btn btn-success btn-xs"><i
-                                                    class=" glyphicon glyphicon-check"></i></button>
+                                            <a href="assign/to/assign/role/page.html?adminId=${admin.id}&pageNum=${requestScope['PAGE-INFO'].pageNum}" class="btn btn-success btn-xs">
+                                                <i class=" glyphicon glyphicon-check"></i>
+                                            </a>
                                             <a href="admin/to/edit/page.html?adminId=${admin.id}&pageNum=${requestScope['PAGE-INFO'].pageNum}" class="btn btn-primary btn-xs">
                                                 <i class=" glyphicon glyphicon-pencil"></i>
                                             </a>

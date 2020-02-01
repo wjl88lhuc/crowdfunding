@@ -31,4 +31,12 @@ public interface RoleDao {
     int updateByPrimaryKey(Role record);
 
     List<Role> selectForKeywordSearch(String keyword);
+
+    List<Role> selectAssignedRoleList(Integer adminId);
+
+    List<Role> selectUnAssignedRoleList(Integer adminId);
+
+    void deleteOldAdminRelationShip(Integer adminId);
+
+    void insertNewAdminRelationShip(@Param("adminId") Integer adminId, @Param("roleIdList") List<Integer> roleIdList);
 }
