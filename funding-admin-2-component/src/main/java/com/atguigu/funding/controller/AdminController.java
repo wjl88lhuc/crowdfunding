@@ -98,6 +98,7 @@ public class AdminController {
 
     @RequestMapping("/admin/to/main/page")
     public String toMainPage() {
+        System.out.println("********走了红包********");
         return "admin-main";
     }
 

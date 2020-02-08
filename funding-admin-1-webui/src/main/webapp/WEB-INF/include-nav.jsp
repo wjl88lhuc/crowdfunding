@@ -5,6 +5,7 @@
   Version: 1.0
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="securuty" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -18,14 +19,16 @@
                     <div class="btn-group">
                         <button type="button" class="btn btn-default btn-success dropdown-toggle"
                                 data-toggle="dropdown">
-                            <i class="glyphicon glyphicon-user"></i> ${sessionScope['LOGIN-ADMIN'].userName} <span
-                                class="caret"></span>
+                            <i class="glyphicon glyphicon-user"></i>
+                            <%--<securuty:authentication property="name"></securuty:authentication>--%>
+                            <securuty:authentication property="principal.rawAdmin.userName"></securuty:authentication>
+                            <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
                             <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
                             <li class="divider"></li>
-                            <li><a href="${pageContext.request.contextPath}/admin/logout.html">退出登录</a></li>
+                            <li><a href="${pageContext.request.contextPath}/admin/security/do/logout.html">退出登录</a></li>
                         </ul>
                     </div>
                 </li>

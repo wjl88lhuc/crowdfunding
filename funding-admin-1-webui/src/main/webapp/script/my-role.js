@@ -28,7 +28,6 @@ function showPage() {
     //获取分页数据:PageInfo
     var pageInfo = getPageInfo();
     if (pageInfo == null){
-        layer.msg("求登陆后再操作");
         //如果没有得到 pageInfo 就直接结束了 该方法的执行,终止了后面的操作
         return;
     }
@@ -55,14 +54,15 @@ function getPageInfo() {
     });
     console.log(ajaxResult);  // ajaxResult 是json格式的响应体，有三个属性： data,message,result(状态)
     var resultEntity = ajaxResult.responseJSON;
+    console.log(ajaxResult);
     var resultStatus = resultEntity.result;
     if (resultStatus == "SUCCESS") {
         var pageInfo = resultEntity.data;
         window.total = pageInfo.pages;
         return pageInfo
     }
-    if (resultStatus == "FIELD"){
-        layer.msg(resultEntity.message)
+    if (resultStatus == "FAILED"){
+        layer.msg(resultEntity.message);
     }
     return null
 }

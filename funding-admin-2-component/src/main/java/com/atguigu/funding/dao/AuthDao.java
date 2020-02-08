@@ -36,4 +36,6 @@ public interface AuthDao {
     void deleteOldRelationshp(Integer roleId);
 
     void insertNewRelationship(@Param("roleId") Integer roleId,@Param("authIdList") List<Integer> authIdList);
+
+    List<Auth> selectAuthListByAdminId(Integer adminId);
 }

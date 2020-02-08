@@ -9,6 +9,7 @@ import com.atguigu.funding.util.CrowdFundingUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -21,6 +22,8 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminDao adminDao;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<Admin> getAll() {
@@ -74,7 +77,8 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void saveAdmin(Admin admin) {
         //对密码进行加密
-        String userPswd = CrowdFundingUtils.md5(admin.getUserPswd());
+//        String userPswd = CrowdFundingUtils.md5(admin.getUserPswd());
+        String userPswd = passwordEncoder.encode(admin.getUserPswd());  //使用springSecurity的加密方法加密
         admin.setUserPswd(userPswd);
         if (admin != null && admin.getCreateTime() == null){
             LocalDateTime timeNow = LocalDateTime.now();

@@ -5,6 +5,7 @@ import com.atguigu.funding.entity.ResultEntity;
 import com.atguigu.funding.entity.Role;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +21,8 @@ public class RoleController {
         return ResultEntity.successWithoutData();
     }
 
+    //SpEL表达式
+    @PreAuthorize("hasAuthority('role:get')")
     @RequestMapping("/role/search/by/keyword")
     public ResultEntity<PageInfo<Role>> search(
             @RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,

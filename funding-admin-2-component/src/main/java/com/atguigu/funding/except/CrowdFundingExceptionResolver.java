@@ -28,7 +28,7 @@ public class CrowdFundingExceptionResolver {
             String exceptionMessage = CrowdFundingConstant.EXCEPTION_TO_MESSAGEMAP.get(exceptionClassName);
 
             if (exceptionMessage == null){
-                exceptionMessage = "系统位置错误";
+                exceptionMessage = "系统未知错误";
             }
 
             ResultEntity<String> resultEntity = ResultEntity.fail(ResultEntity.NO_DATA, exceptionMessage);

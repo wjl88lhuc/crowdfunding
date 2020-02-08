@@ -18,6 +18,7 @@ public class CrowdFundingConstant {
         EXCEPTION_TO_MESSAGEMAP.put(ArithmeticException.class.getName(),"系统在数学运算是发生的错误");
         EXCEPTION_TO_MESSAGEMAP.put(RuntimeException.class.getName(),"系统在运行时候发生异常");
         EXCEPTION_TO_MESSAGEMAP.put("com.atguigu.funding.except.LoginException","系统在登陆时发生异常");//自定义的异常
+        EXCEPTION_TO_MESSAGEMAP.put("org.springframework.security.access.AccessDeniedException","尊敬的用户，你不具备你正在访问的资源的权限，请先联系超级管理员");
     }
 
 }
